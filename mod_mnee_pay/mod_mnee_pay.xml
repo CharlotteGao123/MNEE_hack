@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="4.0" client="site" method="upgrade">
+    <name>MNEE Crypto Payment</name>
+    <author>Your Name</author>
+    <creationDate>Jan 2026</creationDate>
+    <copyright>Copyright (C) 2026. All rights reserved.</copyright>
+    <license>GNU General Public License version 2 or later;</license>
+    <version>1.0.0</version>
+    <description>Accept MNEE stablecoin payments on Sepolia Testnet.</description>
+    
+    <files>
+        <filename module="mod_mnee_pay">mod_mnee_pay.php</filename>
+        <folder>tmpl</folder>
+    </files>
+</extension>
