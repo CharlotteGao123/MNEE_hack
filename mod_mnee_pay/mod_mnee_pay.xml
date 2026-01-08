@@ -11,5 +11,6 @@
     <files>
         <filename module="mod_mnee_pay">mod_mnee_pay.php</filename>
         <folder>tmpl</folder>
+        <filename>verify.php</filename>  <folder>tmpl</folder>
     </files>
 </extension>
