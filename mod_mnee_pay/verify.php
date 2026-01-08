@@ -11,21 +11,20 @@ header("Access-Control-Allow-Headers: Content-Type");
 $input = json_decode(file_get_contents('php://input'), true);
 $txHash = isset($input['txHash']) ? $input['txHash'] : '';
 
-// Validation: Ensure hash is provided
 if (empty($txHash)) {
     echo json_encode(['success' => false, 'message' => 'No transaction hash provided']);
     exit;
 }
 
-// 3. Configure Blockchain Node (RPC URL)
-// Using Sepolia Public Node. If it's slow, replace with your Alchemy/Infura URL.
-$rpcUrl = "https://rpc.sepolia.org"; 
+// 3. Configure Blockchain Node (Your Alchemy URL)
+// ✅ Using the specific Alchemy URL you provided. This is much more stable.
+$rpcUrl = "https://eth-sepolia.g.alchemy.com/v2/PU9BeAq7qQbgQfsfWQ5wF"; 
 
 // 4. Your Gateway Contract Address
 // IMPORTANT: Must match the GATEWAY_ADDRESS in your default.php
 $myGatewayAddress = strtolower("0xa8DDF2d31186632613b622d34B0eB094850f85d3");
 
-// 5. Construct JSON-RPC Request (eth_getTransactionReceipt)
+// 5. Construct JSON-RPC Request
 $data = [
     "jsonrpc" => "2.0",
     "method" => "eth_getTransactionReceipt",
@@ -39,7 +38,14 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, ["Content-Type: application/json"]);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-curl_setopt($ch, CURLOPT_TIMEOUT, 10); // Set 10s timeout to prevent hanging
+
+// Set timeout to 15s (Alchemy is fast, but just in case XAMPP is slow)
+curl_setopt($ch, CURLOPT_TIMEOUT, 15); 
+
+// ⚠️ Hack for XAMPP: Disable SSL check if local certificates are missing
+// This helps prevent "SSL certificate problem" errors on localhost
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 
 $response = curl_exec($ch);
 
@@ -67,19 +73,16 @@ $txData = $result['result'];
 $isSuccess = ($txData['status'] === '0x1');
 
 // Check B: Recipient must be YOUR Gateway Contract
-// Note: 'to' address might be null if it's a contract creation, so we check existence.
 $txTo = isset($txData['to']) ? $txData['to'] : '';
 $isToMyContract = (strtolower($txTo) === $myGatewayAddress);
 
 // 8. Final Decision
 if ($isSuccess && $isToMyContract) {
-    //VERIFIED
     echo json_encode([
         'success' => true, 
         'message' => 'Payment Verified Successfully!'
     ]);
 } else {
-    //FAILED
     $errorMsg = 'Verification failed.';
     
     if (!$isSuccess) {

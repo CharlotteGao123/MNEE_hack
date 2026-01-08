@@ -23,6 +23,9 @@ This project solves the "crypto-to-commerce" gap by providing a plug-and-play mo
 MNEE_hack/
 ├── JommlaMNEEGateway.sol    # Solidity Smart Contract for Payment Gateway
 ├── MyMNEE.sol               # Solidity Smart Contract for Mock MNEE Token
+├── images/                  # Demo Screenshots
+│   ├── payment.png
+│   └── recepit.png
 ├── mod_mnee_pay/            # Joomla Module Directory
 │   ├── mod_mnee_pay.php     # Main Module Entry Point
 │   ├── mod_mnee_pay.xml     # Module Manifest File
@@ -78,7 +81,14 @@ For the hackathon demonstration, we deployed a **Mock MNEE Token** to simulate t
 2. The module will display a payment card with a random **Order ID** (e.g., `ORD-12345`).
 3. **Step 1**: Click **"Approve MNEE"** to allow the gateway to spend your MNEE tokens. Confirm the transaction in MetaMask.
 4. **Step 2**: Once approved, the button changes. Click **"Pay Now"** to execute the payment.
-5. **Success**: Wait for the transaction to be mined. The module will verify the transaction with the backend and display a success receipt with the Transaction Hash.
+## 📸 Screenshots
+
+| Payment UI | Success Receipt |
+| :---: | :---: |
+| ![Payment Interface](images/payment.png) | ![Transaction Receipt](images/recepit.png) |
+| *User pays with MNEE* | *Blockchain verified receipt* |
+
+---
 
 ---
 
