@@ -17,12 +17,22 @@ This project solves the "crypto-to-commerce" gap by providing a plug-and-play mo
 
 ---
 
+## 🎥 Demo Video & Slides
+Watch the demo video to see the payment flow in action, or view the presentation slides for more details.
+- [**Watch Demo Video**](Demo%20Video/MNEE.mp4)
+- [**View Presentation Slides**](Demo%20Video/MNEE.pptx)
+
+---
+
 ## 🛠 Project Structure
 
 ```bash
 MNEE_hack/
 ├── JommlaMNEEGateway.sol    # Solidity Smart Contract for Payment Gateway
 ├── MyMNEE.sol               # Solidity Smart Contract for Mock MNEE Token
+├── Demo Video/              # Demo Video & Presentation
+│   ├── MNEE.mp4
+│   └── MNEE.pptx
 ├── images/                  # Demo Screenshots
 │   ├── payment.png
 │   └── recepit.png
